@@ -1,0 +1,79 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Reservation {
+    String guestName;
+    int roomNumber;
+    int nights;
+
+    public Reservation(String guestName, int roomNumber, int nights) {
+        this.guestName = guestName;
+        this.roomNumber = roomNumber;
+        this.nights = nights;
+    }
+
+    @Override
+    public String toString() {
+        return "Guest: " + guestName + ", Room: " + roomNumber + ", Nights: " + nights;
+    }
+}
+
+public class HotelReservationSystem {
+    static ArrayList<Reservation> reservations = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int choice;
+
+        do {
+            System.out.println("\n--- Hotel Reservation System ---");
+            System.out.println("1. Add Reservation");
+            System.out.println("2. View Reservations");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1:
+                    addReservation();
+                    break;
+                case 2:
+                    viewReservations();
+                    break;
+                case 3:
+                    System.out.println("Exiting the system. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again.");
+            }
+        } while (choice != 3);
+    }
+
+    public static void addReservation() {
+        System.out.print("Enter guest name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter room number: ");
+        int room = scanner.nextInt();
+
+        System.out.print("Enter number of nights: ");
+        int nights = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        Reservation newRes = new Reservation(name, room, nights);
+        reservations.add(newRes);
+        System.out.println("Reservation added successfully!");
+    }
+
+    public static void viewReservations() {
+        if (reservations.isEmpty()) {
+            System.out.println("No reservations found.");
+        } else {
+            System.out.println("\nCurrent Reservations:");
+            for (Reservation r : reservations) {
+                System.out.println(r);
+            }
+        }
+    }
+}
